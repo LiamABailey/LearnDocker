@@ -1,7 +1,6 @@
 package internal
 
 import (
-  "go.mongodb.org/mongo-driver/bson"
   "go.mongodb.org/mongo-driver/bson/primitive"
 )
 
@@ -13,7 +12,7 @@ type FruitWrtiable struct {
 }
 
 // when reading, we recieve the _id field
-type FruiReadable struct {
+type FruitReadable struct {
   ID      primitive.ObjectID  `bson:"_id"`
   Name    string              `bson:"name"`
   Origin  string              `bson:"origin"`
