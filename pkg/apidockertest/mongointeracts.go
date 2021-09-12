@@ -46,26 +46,10 @@ func (M *MongoConnect) AddFruit(newfruit FruitWritable) error {
   return nil
 }
 
-// adds a slice of fruits to the database
-func (M *MongoConnect) AddFruitMulti(newfruits []FruitWritable) error {
-    //InsertMany takes an []interface{}
-    insertables := make([]interface{}, len(newfruits))
-    for i,v := range newfruits {
-      insertables[i] = v
-    }
-
-    coll := M.Client.Database(DB).Collection(FRUIT)
-    _, err := coll.InsertMany(context.TODO(), insertables)
-    if err != nil {
-      return err
-    }
-    return nil
-}
-
 // Returns fruit matching the provided ID.
-func (M *MongoConnect) GetFruitByID(id primitive.ObjectID ) (FruitReadable, error) {
+func (M *MongoConnect) GetFruitByID(id primitive.ObjectID) (FruitReadable, error) {
   var fruit FruitReadable
-  filt := bson.D{primitive.E{Key: "_id", Value: id}}
+  filt := bson.M{"_id": id}
   coll := M.Client.Database(DB).Collection(FRUIT)
   err := coll.FindOne(context.TODO(), filt).Decode(&fruit)
   return fruit, err
@@ -74,7 +58,7 @@ func (M *MongoConnect) GetFruitByID(id primitive.ObjectID ) (FruitReadable, erro
 // Returns any fruit matching the provided name
 func (M *MongoConnect) GetFruitByName(fruitname string) ([]FruitReadable, error) {
   var fruits []FruitReadable
-  filt := bson.M{"name": "orange"}
+  filt := bson.M{"name": fruitname}
   //bson.D{primitive.E{Key: "name", Value: fruitname}}
   coll := M.Client.Database(DB).Collection(FRUIT)
   curs, err := coll.Find(context.TODO(), filt)
@@ -90,6 +74,15 @@ func (M *MongoConnect) GetFruitByName(fruitname string) ([]FruitReadable, error)
   }
   return fruits, err
 }
+
+// Deletes a fruit matching the provided ID
+func (M *MongoConnect) DeleteFruitByID(id primitive.ObjectID) (*mongo.DeleteResult, error) {
+  filt := bson.M{"_id": id}
+  coll := M.Client.Database(DB).Collection(FRUIT)
+  dr, err := coll.DeleteOne(context.TODO(), filt)
+  return dr, err
+}
+
 
 // Remove fruit by ID
 //func (M *MongoConnect) RemoveFruitByID(id primitive.ObjectID) (error){

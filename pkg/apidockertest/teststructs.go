@@ -6,17 +6,17 @@ import (
 
 // when writing a fruit to the DB, we allow mongod to add the _id field
 type FruitWritable struct {
-  Name    string              `bson:"name"`
-  Origin  string              `bson:"origin"`
-  Price   int                 `bson:"number"`
+  Name    string              `bson:"name" json:"name" binding:"required"`
+  Origin  string              `bson:"origin" json:"origin"`
+  Price   int                 `bson:"price" json:"price"`
 }
 
 // when reading, we recieve the _id field
 type FruitReadable struct {
-  ID      primitive.ObjectID  `bson:"_id"`
-  Name    string              `bson:"name"`
-  Origin  string              `bson:"origin"`
-  Price   float64             `bson:"price"`
+  ID      primitive.ObjectID  `bson:"_id" json:"_id"`
+  Name    string              `bson:"name" json:"name"`
+  Origin  string              `bson:"origin" json:"origin"`
+  Price   float64             `bson:"price" json:"price"`
 }
 
 
