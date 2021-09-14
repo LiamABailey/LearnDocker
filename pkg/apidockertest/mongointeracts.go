@@ -10,7 +10,7 @@ import (
 
 
 const (
-  CONNSTR = "mongodb://localhost:27017"
+  CONNSTR = "mongodb://mongodb:27017"
   DB      = "food"
   FRUIT   = "fruits"
 )
@@ -82,9 +82,3 @@ func (M *MongoConnect) DeleteFruitByID(id primitive.ObjectID) (*mongo.DeleteResu
   dr, err := coll.DeleteOne(context.TODO(), filt)
   return dr, err
 }
-
-
-// Remove fruit by ID
-//func (M *MongoConnect) RemoveFruitByID(id primitive.ObjectID) (error){
-//
-//}

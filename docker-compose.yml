@@ -1,0 +1,31 @@
+version: "3.8"
+services:
+    mongodb:
+      image: mongo
+      container_name: mongodb
+      hostname: mongodb
+      environment:
+       - PUID=111
+       - PGID=111
+      volumes:
+       - /mongodb/database:/data/db
+      ports:
+       - 27017:27017
+      restart: unless-stopped
+      networks:
+       - api-net
+
+    testapi:
+      image: go-test
+      container_name: go-test-1
+      hostname: gotest1
+      ports:
+        - 8080:8080
+      depends_on:
+       - mongodb
+      networks:
+        - api-net
+
+networks:
+  api-net:
+    name: api-net
