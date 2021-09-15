@@ -25,6 +25,10 @@ services:
        - mongodb
       networks:
         - api-net
+      environment:
+        - MONGOCONN=mongodb://mongodb:27017
+        - MONGODB=food
+        - MONGOCOLLECTION=fruits
 
 networks:
   api-net:

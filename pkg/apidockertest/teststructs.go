@@ -1,25 +1,25 @@
 package apidockertest
 
 import (
-  "go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-// when writing a fruit to the DB, we allow mongod to add the _id field
+// When writing a fruit to the DB, we allow mongod to add the _id field
 type FruitWritable struct {
-  Name    string              `bson:"name" json:"name" binding:"required"`
-  Origin  string              `bson:"origin" json:"origin"`
-  Price   int                 `bson:"price" json:"price"`
+	Name   string `bson:"name" json:"name" binding:"required"`
+	Origin string `bson:"origin" json:"origin"`
+	Price  int    `bson:"price" json:"price"`
 }
 
-// when reading, we recieve the _id field
+// When reading, we recieve the _id field
 type FruitReadable struct {
-  ID      primitive.ObjectID  `bson:"_id" json:"_id"`
-  Name    string              `bson:"name" json:"name"`
-  Origin  string              `bson:"origin" json:"origin"`
-  Price   float64             `bson:"price" json:"price"`
+	ID     primitive.ObjectID `bson:"_id" json:"_id"`
+	Name   string             `bson:"name" json:"name"`
+	Origin string             `bson:"origin" json:"origin"`
+	Price  float64            `bson:"price" json:"price"`
 }
 
-
+//
 func (f FruitReadable) Copy() FruitReadable {
-  return FruitReadable{f.ID, f.Name, f.Origin, f.Price}
+	return FruitReadable{f.ID, f.Name, f.Origin, f.Price}
 }
