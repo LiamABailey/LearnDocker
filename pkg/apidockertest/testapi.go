@@ -23,6 +23,10 @@ func NewAPIServer(mc *MongoConnect) *APIServer {
 	return svr
 }
 
+func (srv *APIServer) Run(address string) error {
+  return srv.router.Run(address)
+}
+
 // Search a Fruit by its name
 // Gets 0 or more fruit with matching name
 func (srv *APIServer) getFruitByName(ctx *gin.Context) {

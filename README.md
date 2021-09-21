@@ -15,4 +15,4 @@ Code is organized in the following way:
 - /mongodb: MongoDB docker file, sample data
 
 
-API intentionally supports few endpoints; this was written as an exercise in getting Docker working, not in building a meaningful service. 
+API intentionally supports few endpoints; this was written as an exercise in getting Docker working, not in building a meaningful service.
