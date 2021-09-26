@@ -84,7 +84,7 @@ func (M *MongoConnect) GetFruitByName(fruitname string) ([]FruitReadable, error)
 func (M *MongoConnect) DeleteFruitByID(id primitive.ObjectID) (*mongo.DeleteResult, error) {
 	// filter by the provided ID
 	filt := bson.M{"_id": id}
-	coll := M.Client.Database(DB).Collection(os.Getenv(COLLECTION))
+	coll := M.getCollection()
 	dr, err := coll.DeleteOne(context.TODO(), filt)
 	return dr, err
 }
